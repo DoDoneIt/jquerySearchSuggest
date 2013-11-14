@@ -9,6 +9,8 @@ $(function() {
   $.fn.searchSuggest = function(options) {
     var defaults = {
       url:"XXXX.php", //参数url，传递给后台url处理
+      data1:"id", //后台返回的字段
+      data2:"name", // 后台返回的字段
     };
     var options = $.extend(defaults,options);   
     var $mhInput = $(this);
