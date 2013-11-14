@@ -8,7 +8,7 @@
 $(function() {
   $.fn.searchSuggest = function(options) {
     var defaults = {
-      url:"/default/index/ajaxgetuser/nick/", //参数url，传递给后台url处理
+      url:"XXXX.php", //参数url，传递给后台url处理
     };
     var options = $.extend(defaults,options);   
     var $mhInput = $(this);
