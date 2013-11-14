@@ -9,8 +9,8 @@ $(function() {
   $.fn.searchSuggest = function(options) {
     var defaults = {
       url:"XXXX.php", //参数url，传递给后台url处理
-      data1:"id", //后台返回的字段
-      data2:"name", // 后台返回的字段
+      id:"id", //后台返回的字段
+      name:"nick" //后台返回的字段，可自添
     };
     var options = $.extend(defaults,options);   
     var $mhInput = $(this);
@@ -32,10 +32,12 @@ $(function() {
 
       function showResult(data){  // 以 li 形式装载提示结果
         var offset = getPosition();
+        var name = options.nick;
+        var id = options.id;
         var result = "<ul id='result' style=left:"+offset.left+";height:10;width:200;position:absolute;top:"+offset.top+">";
           if (data.length != 0) {
               for (var i=0 ; i<data.length; i++){
-                  result +="<li val="+data[i].id+">"+data[i].nick+"</li>";
+                  result +="<li val="+data[i].id+">"+data[i].name+"</li>";
               }
               result +="</ul>";
           }else{
