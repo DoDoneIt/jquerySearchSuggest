@@ -12,9 +12,11 @@ $(function() {
 	  result:'',
 	  input:''
     };
-    var options = $.extend(defaults, options);
-    var $mhInput = $("#"+options.input);
-    console.log(options);
+    var options 	= $.extend(defaults, options);
+    var $mhInput 	= $("#"+options.input);
+    var domResult 	= options.result;//input的外层DIV
+    var domData		= 'result_spot';//接收后台数据的DOM
+    var domValue	= options.hiddenValue;//input隐藏值
     $mhInput.keyup(function() {
       var name = $.trim($mhInput.val()); //得到input框中的值
       if(name == ''){
@@ -22,29 +24,29 @@ $(function() {
         return true;
       }
       var url = options.url + "&cache="+Math.random()+"&name=";
-      $("#result").remove(); //清空ul
+      $("#"+domData).remove(); //清空ul
       $.ajax({
         dataType: 'json',
         type: "GET",
         url: url + name,
         success: function(msg) {
          var result = showResult(msg);
-         $("#result").remove();//清空前一次的结果 
-         $("."+options.result).after(result); //在div后显示提示结果
+         $("#"+domData).remove();//清空前一次的结果 
+         $("."+domResult).after(result); //在div后显示提示结果
         }
       });
     });
 
     //清空
     function clearSpotId(){
-      $("#"+options.hiddenValue).val('0');
+      $("#"+domValue).val('');
     }
 
     function showResult(data) { // 以 li 形式装载提示结果
       var offset = getPosition();
       var name = options.name;
       var id = options.id;
-      var result = "<ul id='result' style=top:" + offset.top+"px;left:"+offset.left+"px>";
+      var result = "<ul id='"+domData+"' style=top:" + offset.top+"px;left:"+offset.left+"px>";
       if (data.length != 0) {
         for (var i = 0; i < data.length; i++) {
           result += "<li val='" + data[i][options.id] + "'>" + data[i][options.name] + "</li>";
@@ -68,19 +70,19 @@ $(function() {
     }
 
    $(document).click(function() {
-        $("#result").fadeOut();
-        $("#result").remove();
+        $("#"+domData).fadeOut();
+        $("#"+domData).remove();
     });
 
 
-    // 鼠标选中 li，选中后消失
-    $("#result li").live("click", function() {
+    //鼠标选中 li，选中后消失
+   //die掉li的委托，不然会一直积累全局$mhInput
+   $("#"+domData+" li").die().live("click", function() {
       var spot_name = $(this).text(); //取li中的val
       $mhInput.val(''); //清空 input框
       $mhInput.val(spot_name);
-      console.log(options);
-      $("#"+options.hiddenValue).val($(this).attr('val'));
-      $("#result").remove(); // ul 淡出
+      $("#"+domValue).val($(this).attr('val'));
+      $("#"+domData).remove(); // ul 淡出
     });
   }
 });
