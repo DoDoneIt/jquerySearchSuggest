@@ -5,16 +5,28 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="searchSuggest.js"></script>
 <style>
-  #result  li{cursor:pointer; height:20px;width:150px;padding-top:5px;border: 1px solid #E7E7E7;padding-bottom:5px;}
+  #result_spot {
+	z-index: 100;background-color: #DBDBDB;width: 200px;position: absolute;
+	height: auto;
+	max-height: 300px;overflow-y:scroll; 
+}
+
+#result_spot  li{
+	list-style-type:none;
+	cursor:pointer; height:20px;padding-top:5px;border: 1px solid #E7E7E7;padding-bottom:5px;
+	padding-left: 2px;
+}
 </style>
 <script>
-  $(function(){
-    $("#nick").searchSuggest({
-        url:"XXXXX.php",
-        id:"uid",
-        name:"username"
-    });  
-  });
+	$("#nick").focus(function(){
+	    $("#nick").spotSuggest({
+			'url':'php.php',
+			'hiddenValue':'',
+			'result':'',
+			'input':"nick",
+			'domData':'result_spot'
+	    });  
+	});
 </script>
 </head>
 <body>
