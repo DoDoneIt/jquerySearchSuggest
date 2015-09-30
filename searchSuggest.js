@@ -15,7 +15,7 @@ $(function() {
     var options 	= $.extend(defaults, options);
     var $mhInput 	= $("#"+options.input);
     var domResult 	= options.result;//input的外层DIV
-    var domData		= 'result_spot';//接收后台数据的DOM
+    var domData		= options.domData;//接收后台数据的UL DOM，注意前台的样式定义
     var domValue	= options.hiddenValue;//input隐藏值
     $mhInput.keyup(function() {
       var name = $.trim($mhInput.val()); //得到input框中的值
