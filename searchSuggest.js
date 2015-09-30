@@ -5,20 +5,20 @@
 $(function() {
   $.fn.spotSuggest = function(options) {
     var defaults = {
-      url: "",
+      url: "",			//必填项
       id: "id",
       name: "name",
 	  hiddenValue:'',
-	  result:'',
-	  input:''
+	  result:'',		//必填项
+	  input:''			//必填项
     };
     var options 	= $.extend(defaults, options);
-    var $mhInput 	= $("#"+options.input);
-    var domResult 	= options.result;//input的外层DIV
-    var domData		= options.domData;//接收后台数据的UL DOM，注意前台的样式定义
-    var domValue	= options.hiddenValue;//input隐藏值
+    var $mhInput 	= $("#"+options.input); 		//当前的input框
+    var domResult 	= options.result;				//input的外层DIV
+    var domData		= options.domData;				//接收后台数据的UL DOM，注意前台的样式定义
+    var domValue	= options.hiddenValue;			//input隐藏值
     $mhInput.keyup(function() {
-      var name = $.trim($mhInput.val()); //得到input框中的值
+      var name = $.trim($mhInput.val()); 			//得到input框中的值
       if(name == ''){
         clearSpotId();
         return true;
@@ -42,7 +42,8 @@ $(function() {
       $("#"+domValue).val('');
     }
 
-    function showResult(data) { // 以 li 形式装载提示结果
+    // 以 li 形式装载提示结果
+    function showResult(data) { 
       var offset = getPosition();
       var name = options.name;
       var id = options.id;
